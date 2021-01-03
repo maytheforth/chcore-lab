@@ -28,8 +28,12 @@ __attribute__ ((optimize("O1")))
 int stack_backtrace()
 {
 	printk("Stack backtrace:\n");
-
 	// Your code here.
-
+	u64* fp = (u64*)read_fp();
+	while (*fp != 0)
+	{
+		printk("LR %lx FP %lx Args %lx %lx %lx %lx %lx\n", *((u64*)(*fp) + 1), fp, *(fp + 2), *(fp + 3),*(fp + 4),*(fp + 5), *(fp + 6));
+		fp = (u64*) *fp;
+	}
 	return 0;
 }
